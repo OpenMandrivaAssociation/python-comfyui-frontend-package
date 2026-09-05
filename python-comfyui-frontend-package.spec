@@ -13,9 +13,11 @@ BuildRequires:	pkgconfig(python)
 BuildRequires:	python%{pyver}dist(pip)
 BuildRequires:	python%{pyver}dist(setuptools)
 
-# setup.py reads this instead of the PyPI version
-%build -p
-export COMFYUI_FRONTEND_VERSION=%{version}
+# setup.py defaults to 0.1.0 unless COMFYUI_FRONTEND_VERSION is set.
+# There is no pyproject.toml, so %install re-runs setup.py without
+# %build's environment and would record 0.1.0. Pin the real version.
+%prep -a
+sed -i 's/os.getenv("COMFYUI_FRONTEND_VERSION") or "0.1.0"/"%{version}"/' setup.py
 
 %description
 Prebuilt Vue web UI served by ComfyUI. Without this package ComfyUI
