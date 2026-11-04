@@ -1,5 +1,5 @@
 Name:		python-comfyui-frontend-package
-Version:	1.57.4
+Version:	1.57.6
 Release:	1
 Summary:	Official web frontend for ComfyUI
 License:	GPL-3.0
